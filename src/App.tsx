@@ -1,8 +1,28 @@
+import React, { useState, useCallback } from 'react';
+import debounce from 'lodash.debounce';
 import './App.css';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 export default function App() {
+  const [input, setInput] = useState('');
+  console.log('input', input);
+
+  // Debounced callback (for now, just logs the value)
+  const debouncedOnChange = useCallback(
+    debounce((value: string) => {
+      // This is where you'll call the LLM in the future
+      console.log('Debounced value:', value);
+    }, 500),
+    [],
+  );
+
+  // Handle textarea change
+  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setInput(e.target.value);
+    debouncedOnChange(e.target.value);
+  };
+
   return (
     <div className="min-h-screen flex flex-col md:flex-row">
       {/* Left: Input */}
@@ -15,6 +35,8 @@ export default function App() {
         </label>
         <Textarea
           id="input"
+          value={input}
+          onChange={handleChange}
           placeholder="Type your text here..."
           className="min-h-[300px]"
           aria-label="Text input for improvement"
