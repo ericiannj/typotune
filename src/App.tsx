@@ -43,70 +43,65 @@ export default function App() {
   };
 
   return (
-    <>
-      {/* tailwind-colors: bg-red-500 bg-blue-500 */}
-      <div className="min-h-screen flex">
-        {/* Left column */}
-        <div className="w-1/2 h-screen flex items-center justify-center bg-red-500">
-          <div className="w-full max-w-lg flex flex-col items-center justify-center">
-            <label
-              htmlFor="input"
-              className="mb-4 font-semibold text-center w-full"
-            >
-              Your Text
-            </label>
-            <Textarea
-              id="input"
-              value={input}
-              onChange={handleChange}
-              placeholder="Type your text here..."
-              className="min-h-[300px] w-full"
-              aria-label="Text input for improvement"
-            />
-          </div>
-        </div>
-        {/* Right column */}
-        <div className="w-1/2 h-screen flex items-center justify-center bg-blue-500">
-          <div className="w-full max-w-xl flex flex-col gap-4">
-            <Card>
-              <CardHeader>
-                <CardTitle>Improved Text</CardTitle>
-              </CardHeader>
-              <CardContent className="text-muted-foreground min-h-[100px]">
-                {loading ? (
-                  <span>Loading...</span>
-                ) : error ? (
-                  <span className="text-red-500">{error}</span>
-                ) : improved ? (
-                  <span>{improved}</span>
-                ) : (
-                  <span>Improved text will appear here</span>
-                )}
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader>
-                <CardTitle>Explanations</CardTitle>
-              </CardHeader>
-              <CardContent className="text-muted-foreground min-h-[100px]">
-                {loading ? (
-                  <span>Loading...</span>
-                ) : error ? (
-                  <span className="text-red-500">{error}</span>
-                ) : explanations.length > 0 ? (
-                  <ul className="list-disc pl-5">
-                    {explanations.map((exp, i) => (
-                      <li key={i}>{exp}</li>
-                    ))}
-                  </ul>
-                ) : (
-                  <span>Explanations will appear here</span>
-                )}
-              </CardContent>
-            </Card>
-          </div>
+    <div className="min-h-screen flex">
+      <div className="w-1/2 h-screen flex items-center justify-center bg-slate-500">
+        <div className="w-full max-w-lg flex flex-col items-center justify-center">
+          <label
+            htmlFor="input"
+            className="mb-4 font-semibold text-center w-full"
+          >
+            Your Text
+          </label>
+          <Textarea
+            id="input"
+            value={input}
+            onChange={handleChange}
+            placeholder="Type your text here..."
+            className="min-h-[300px] w-full"
+            aria-label="Text input for improvement"
+          />
         </div>
       </div>
-    </>
+      <div className="w-1/2 h-screen flex items-center justify-center p-8">
+        <div className="w-full max-w-xl flex flex-col gap-4">
+          <Card>
+            <CardHeader>
+              <CardTitle>Improved Text</CardTitle>
+            </CardHeader>
+            <CardContent className="text-muted-foreground min-h-[100px]">
+              {loading ? (
+                <span>Loading...</span>
+              ) : error ? (
+                <span className="text-red-500">{error}</span>
+              ) : improved ? (
+                <span>{improved}</span>
+              ) : (
+                <span>Improved text will appear here</span>
+              )}
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader>
+              <CardTitle>Explanations</CardTitle>
+            </CardHeader>
+            <CardContent className="text-muted-foreground min-h-[100px]">
+              {loading ? (
+                <span>Loading...</span>
+              ) : error ? (
+                <span className="text-red-500">{error}</span>
+              ) : explanations.length > 0 ? (
+                <ul className="list-disc pl-5">
+                  {explanations.map((exp, i) => (
+                    <li key={i}>{exp}</li>
+                  ))}
+                </ul>
+              ) : (
+                <span>Explanations will appear here</span>
+              )}
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    </div>
   );
 }
