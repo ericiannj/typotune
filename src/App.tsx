@@ -44,11 +44,11 @@ export default function App() {
 
   return (
     <div className="min-h-screen flex">
-      <div className="w-1/2 h-screen flex items-center justify-center bg-slate-500">
+      <div className="w-1/2 h-screen flex items-center justify-center bg-slate-800">
         <div className="w-full max-w-lg flex flex-col items-center justify-center">
           <label
             htmlFor="input"
-            className="mb-4 font-semibold text-center w-full"
+            className="mb-4 font-semibold text-center w-full text-slate-100"
           >
             Your Text
           </label>
@@ -57,7 +57,7 @@ export default function App() {
             value={input}
             onChange={handleChange}
             placeholder="Type your text here..."
-            className="min-h-[300px] w-full"
+            className="min-h-[300px] w-full max-h-[300px] overflow-auto text-slate-100"
             aria-label="Text input for improvement"
           />
         </div>
@@ -65,10 +65,24 @@ export default function App() {
       <div className="w-1/2 h-screen flex items-center justify-center p-8">
         <div className="w-full max-w-xl flex flex-col gap-4">
           <Card>
-            <CardHeader>
-              <CardTitle>Improved Text</CardTitle>
+            <CardHeader className="flex flex-row items-center justify-between">
+              <CardTitle className="text-lg font-semibold">
+                Improved Text
+              </CardTitle>
+              <button
+                className="px-3 py-1 rounded text-sm transition bg-blue-500 text-white hover:bg-blue-600 cursor-pointer disabled:bg-gray-300 disabled:text-gray-500 disabled:cursor-default"
+                onClick={() => {
+                  if (improved) {
+                    navigator.clipboard.writeText(improved);
+                  }
+                }}
+                disabled={!improved}
+                title="Copy improved text"
+              >
+                Copy
+              </button>
             </CardHeader>
-            <CardContent className="text-muted-foreground min-h-[100px]">
+            <CardContent className="text-muted-foreground min-h-[100px] max-h-[300px] overflow-auto">
               {loading ? (
                 <span>Loading...</span>
               ) : error ? (
@@ -82,19 +96,26 @@ export default function App() {
           </Card>
           <Card>
             <CardHeader>
-              <CardTitle>Explanations</CardTitle>
+              <CardTitle className="text-lg font-semibold">
+                Explanations
+              </CardTitle>
             </CardHeader>
-            <CardContent className="text-muted-foreground min-h-[100px]">
+            <CardContent className="text-muted-foreground min-h-[100px] max-h-[300px] overflow-auto">
               {loading ? (
                 <span>Loading...</span>
               ) : error ? (
                 <span className="text-red-500">{error}</span>
               ) : explanations.length > 0 ? (
-                <ul className="list-disc pl-5">
-                  {explanations.map((exp, i) => (
-                    <li key={i}>{exp}</li>
-                  ))}
-                </ul>
+                <div>
+                  {explanations[0]
+                    .split(/\s*\*\s+/)
+                    .filter(Boolean)
+                    .map((exp, i) => (
+                      <div key={i} className="mb-2">
+                        {'* ' + exp.trim()}
+                      </div>
+                    ))}
+                </div>
               ) : (
                 <span>Explanations will appear here</span>
               )}
