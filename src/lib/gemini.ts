@@ -8,7 +8,7 @@ export async function improveTextWithGemini(
 ): Promise<GeminiResponse> {
   const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
   const endpoint =
-    'https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent';
+    'https://generativelanguage.googleapis.com/v1/models/gemini-2.0-flash-lite:generateContent';
 
   const body = {
     contents: [
