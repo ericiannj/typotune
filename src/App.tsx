@@ -44,22 +44,28 @@ export default function App() {
 
   return (
     <div className="min-h-screen flex">
-      <div className="w-1/2 h-screen flex items-center justify-center bg-slate-800">
-        <div className="w-full max-w-lg flex flex-col items-center justify-center">
-          <label
-            htmlFor="input"
-            className="mb-4 font-semibold text-center w-full text-slate-100"
-          >
-            Your Text
-          </label>
-          <Textarea
-            id="input"
-            value={input}
-            onChange={handleChange}
-            placeholder="Type your text here..."
-            className="min-h-[300px] w-full max-h-[300px] overflow-auto text-slate-100"
-            aria-label="Text input for improvement"
-          />
+      <div className="w-1/2 h-screen flex flex-col items-center justify-center bg-[#1F4A3A]">
+        <div className="flex flex-col items-center gap-[100px] w-full">
+          <div className="flex items-center gap-2">
+            <img src="/typing.png" alt="Typotune" className="w-8 h-8" />
+            <h1 className="text-3xl font-bold text-slate-100">Typotune</h1>
+          </div>
+          <div className="w-4/5 flex flex-col items-center justify-center">
+            <label
+              htmlFor="input"
+              className="mb-4 font-semibold text-center w-full text-slate-100"
+            >
+              Your Text
+            </label>
+            <Textarea
+              id="input"
+              value={input}
+              onChange={handleChange}
+              placeholder="Type your text here..."
+              className="min-h-[300px] w-full max-h-[300px] overflow-auto text-slate-100"
+              aria-label="Text input for improvement"
+            />
+          </div>
         </div>
       </div>
       <div className="w-1/2 h-screen flex items-center justify-center p-8">
