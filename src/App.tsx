@@ -1,45 +1,16 @@
 import React, { useState, useCallback } from 'react';
-import debounce from 'lodash.debounce';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { improveTextWithGemini } from '@/lib/gemini';
+import useTextImprovement from './hooks/useTextImprovement';
 
 export default function App() {
   const [input, setInput] = useState('');
-  const [improved, setImproved] = useState('');
-  const [explanations, setExplanations] = useState<string[]>([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-
-  const debouncedOnChange = useCallback(
-    debounce(async (value: string) => {
-      if (!value.trim()) {
-        setImproved('');
-        setExplanations([]);
-        setError(null);
-        setLoading(false);
-        return;
-      }
-      setLoading(true);
-      setError(null);
-      try {
-        const result = await improveTextWithGemini(value);
-        setImproved(result.improved);
-        setExplanations(result.explanations);
-      } catch (err: any) {
-        setError(err.message || 'An error occurred');
-        setImproved('');
-        setExplanations([]);
-      } finally {
-        setLoading(false);
-      }
-    }, 500),
-    [],
-  );
+  const { apiState, improveText } = useTextImprovement();
+  const { improved, explanations, loading, error } = apiState;
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setInput(e.target.value);
-    debouncedOnChange(e.target.value);
+    improveText(e.target.value);
   };
 
   return (
