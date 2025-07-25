@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState } from 'react';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import useTextImprovement from './hooks/useTextImprovement';
@@ -11,6 +11,33 @@ export default function App() {
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setInput(e.target.value);
     improveText(e.target.value);
+  };
+
+  const renderImprovedText = () => {
+    if (loading) return <span>Loading...</span>;
+    if (error) return <span className="text-red-500">{error}</span>;
+    if (improved) return <span>{improved}</span>;
+    return <span>Improved text will appear here</span>;
+  };
+
+  const renderExplanations = () => {
+    if (loading) return <span>Loading...</span>;
+    if (error) return <span className="text-red-500">{error}</span>;
+    if (explanations.length > 0) {
+      return (
+        <div>
+          {explanations[0]
+            .split(/\s*\*\s+/)
+            .filter(Boolean)
+            .map((exp, i) => (
+              <div key={i} className="mb-2">
+                {'* ' + exp.trim()}
+              </div>
+            ))}
+        </div>
+      );
+    }
+    return <span>Explanations will appear here</span>;
   };
 
   return (
@@ -47,7 +74,7 @@ export default function App() {
                 Improved Text
               </CardTitle>
               <button
-                className="px-3 py-1 rounded text-sm transition bg-blue-500 text-white hover:bg-blue-600 cursor-pointer disabled:bg-gray-300 disabled:text-gray-500 disabled:cursor-default"
+                className="px-3 py-1 rounded text-sm transition bg-green-500 text-white hover:bg-green-600 cursor-pointer disabled:bg-gray-300 disabled:text-gray-500 disabled:cursor-default"
                 onClick={() => {
                   if (improved) {
                     navigator.clipboard.writeText(improved);
@@ -60,15 +87,7 @@ export default function App() {
               </button>
             </CardHeader>
             <CardContent className="text-muted-foreground min-h-[100px] max-h-[300px] overflow-auto">
-              {loading ? (
-                <span>Loading...</span>
-              ) : error ? (
-                <span className="text-red-500">{error}</span>
-              ) : improved ? (
-                <span>{improved}</span>
-              ) : (
-                <span>Improved text will appear here</span>
-              )}
+              {renderImprovedText()}
             </CardContent>
           </Card>
           <Card>
@@ -78,24 +97,7 @@ export default function App() {
               </CardTitle>
             </CardHeader>
             <CardContent className="text-muted-foreground min-h-[100px] max-h-[300px] overflow-auto">
-              {loading ? (
-                <span>Loading...</span>
-              ) : error ? (
-                <span className="text-red-500">{error}</span>
-              ) : explanations.length > 0 ? (
-                <div>
-                  {explanations[0]
-                    .split(/\s*\*\s+/)
-                    .filter(Boolean)
-                    .map((exp, i) => (
-                      <div key={i} className="mb-2">
-                        {'* ' + exp.trim()}
-                      </div>
-                    ))}
-                </div>
-              ) : (
-                <span>Explanations will appear here</span>
-              )}
+              {renderExplanations()}
             </CardContent>
           </Card>
         </div>
