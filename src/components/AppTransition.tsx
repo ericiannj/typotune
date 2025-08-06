@@ -32,7 +32,10 @@ export default function AppTransition({ onEnd }: HomeTransitionProps) {
   }, []);
 
   return (
-    <div className="z-10 flex h-screen w-full flex-row items-center justify-center bg-gradient-to-b from-[#0a0a0a] to-[#0f172a]">
+    <div className="z-10 flex h-screen w-full flex-col items-center justify-center bg-gradient-to-b from-[#0a0a0a] to-[#0f172a]">
+      <div className="mb-8">
+        <img src="/typing.png" alt="TypoTune" className="w-28 h-28" />
+      </div>
       <div className="flex items-center justify-center">
         <motion.span
           initial={{ opacity: 0 }}
