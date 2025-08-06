@@ -10,6 +10,15 @@ const useTextImprovement = () => {
     error: null as string | null,
   });
 
+  const handleReset = () => {
+    setApiState({
+      improved: '',
+      explanations: [],
+      loading: false,
+      error: null,
+    });
+  };
+
   const improveText = useCallback(
     debounce(async (value: string) => {
       if (!value.trim()) {
@@ -44,7 +53,7 @@ const useTextImprovement = () => {
     [],
   );
 
-  return { apiState, improveText };
+  return { apiState, improveText, handleReset };
 };
 
 export default useTextImprovement;
