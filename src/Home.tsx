@@ -46,8 +46,8 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen flex">
-      <div className="w-1/2 h-screen flex flex-col items-center justify-center bg-gradient-to-br from-gray-950 via-gray-900 to-slate-800">
+    <div className="min-h-screen flex flex-col lg:flex-row">
+      <div className="w-full lg:w-1/2 h-[95vh] lg:h-screen flex flex-col items-center justify-center bg-gradient-to-br from-gray-950 via-gray-900 to-slate-800">
         <div className="flex flex-col items-center  w-full">
           <div className="text-center mb-4">
             <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl mb-6 shadow-lg">
@@ -58,18 +58,17 @@ export default function Home() {
             <h1 className="text-2xl md:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-blue-100 to-indigo-100 mb-6 tracking-tight">
               TypoTune
             </h1>
-            <p className="text-md md:text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed">
+            <p className="text-md md:text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed px-4 sm:px-6 lg:px-8">
               Transform your writing with AI-powered improvements and insights.
             </p>
           </div>
-          <div className="w-4/5 flex flex-col items-center justify-center bg-gray-800/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-gray-700/50 p-8 mb-4">
+          <div className="w-4/5 flex flex-col items-center justify-center bg-gray-800/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-gray-700/50 p-4 sm:p-6 lg:p-8 mb-4">
             <div className="w-full">
               <Textarea
                 value={input}
                 onChange={handleChange}
                 placeholder="Type or paste your English text here..."
-                className="w-full text-md
-                 h-48 p-6 bg-gray-700/50 border-2 border-gray-600/50 rounded-2xl resize-none focus:ring-4 focus:ring-blue-500/20 focus:border-blue-400 text-white transition-all duration-300 text-lg leading-relaxed placeholder:text-gray-500"
+                className="w-full text-md h-32 sm:h-40 lg:h-48 p-4 sm:p-6 bg-gray-700/50 border-2 border-gray-600/50 rounded-2xl resize-none focus:ring-4 focus:ring-blue-500/20 focus:border-blue-400 text-white transition-all duration-300 text-base sm:text-lg leading-relaxed placeholder:text-gray-500"
               />
             </div>
             <div className="w-full flex items-center justify-between mt-2">
@@ -93,18 +92,18 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div className="w-1/2 h-screen flex items-center justify-center p-8 bg-gradient-to-br from-slate-50 via-blue-50/30 to-indigo-100/50 backdrop-blur-sm relative overflow-hidden">
+      <div className="w-full lg:w-1/2 min-h-screen lg:h-screen flex items-center justify-center p-4 lg:p-8 bg-gradient-to-br from-slate-50 via-blue-50/30 to-indigo-100/50 backdrop-blur-sm relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-white/80 via-blue-50/40 to-indigo-100/30"></div>
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_80%,rgba(120,119,198,0.1)_0%,transparent_50%)]"></div>
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(255,119,198,0.1)_0%,transparent_50%)]"></div>
-        <div className="w-full max-w-xl flex flex-col gap-4 relative z-10">
+        <div className="w-full max-w-sm sm:max-w-md lg:max-w-xl flex flex-col gap-3 sm:gap-4 relative z-10">
           <Card className="bg-white/70 backdrop-blur-xl border border-white/20 shadow-xl hover:shadow-2xl transition-all duration-300">
-            <CardHeader className="flex flex-row items-center justify-between">
-              <CardTitle className="text-lg font-semibold text-gray-800">
+            <CardHeader className="flex flex-row items-center justify-between p-4 sm:p-6">
+              <CardTitle className="text-base sm:text-lg font-semibold text-gray-800">
                 Improved Text
               </CardTitle>
               <button
-                className="px-3 py-1 rounded-lg text-sm transition-all duration-300 bg-gradient-to-r from-indigo-500 to-indigo-600 text-white hover:from-indigo-600 hover:to-indigo-700 cursor-pointer disabled:from-gray-300 disabled:to-gray-400 disabled:text-gray-500 disabled:cursor-default shadow-md hover:shadow-lg transform hover:scale-105 disabled:scale-100"
+                className="px-2 sm:px-3 py-1 rounded-lg text-xs sm:text-sm transition-all duration-300 bg-gradient-to-r from-indigo-500 to-indigo-600 text-white hover:from-indigo-600 hover:to-indigo-700 cursor-pointer disabled:from-gray-300 disabled:to-gray-400 disabled:text-gray-500 disabled:cursor-default shadow-md hover:shadow-lg transform hover:scale-105 disabled:scale-100"
                 onClick={() => {
                   if (improved) {
                     navigator.clipboard.writeText(improved);
@@ -116,17 +115,17 @@ export default function Home() {
                 Copy
               </button>
             </CardHeader>
-            <CardContent className="text-gray-700 min-h-[100px] max-h-[300px] overflow-auto">
+            <CardContent className="text-gray-700 min-h-[80px] sm:min-h-[100px] max-h-[200px] sm:max-h-[300px] overflow-auto p-4 sm:p-6">
               {renderImprovedText()}
             </CardContent>
           </Card>
           <Card className="bg-white/70 backdrop-blur-xl border border-white/20 shadow-xl hover:shadow-2xl transition-all duration-300">
-            <CardHeader>
-              <CardTitle className="text-lg font-semibold text-gray-800">
+            <CardHeader className="p-4 sm:p-6">
+              <CardTitle className="text-base sm:text-lg font-semibold text-gray-800">
                 Explanations
               </CardTitle>
             </CardHeader>
-            <CardContent className="text-gray-700 min-h-[100px] max-h-[300px] overflow-auto">
+            <CardContent className="text-gray-700 min-h-[80px] sm:min-h-[100px] max-h-[200px] sm:max-h-[300px] overflow-auto p-4 sm:p-6">
               {renderExplanations()}
             </CardContent>
           </Card>
