@@ -1,4 +1,7 @@
-# TypoTune
+<div align="center">
+  <img src="public/typing.png" alt="TypoTune Logo" width="120" height="120">
+  <h1># TypoTune</h1>
+</div>
 
 A modern, AI-powered writing improvement tool built with React, TypeScript, and Tailwind CSS. TypoTune helps users enhance their English text with AI-powered improvements and detailed explanations.
 
