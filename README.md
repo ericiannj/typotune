@@ -1,69 +1,122 @@
-# React + TypeScript + Vite
+# TypoTune
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, AI-powered writing improvement tool built with React, TypeScript, and Tailwind CSS. TypoTune helps users enhance their English text with AI-powered improvements and detailed explanations.
 
-Currently, two official plugins are available:
+## ✨ Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **AI-Powered Text Improvement**: Get instant suggestions to enhance your writing
+- **Detailed Explanations**: Understand why changes were made with clear explanations
+- **Real-time Processing**: See improvements as you type
+- **Modern UI/UX**: Beautiful, responsive design with smooth animations
+- **Copy to Clipboard**: Easy copying of improved text
+- **Character Counter**: Track your text length in real-time
+- **Responsive Design**: Works seamlessly on desktop and mobile devices
 
-## Expanding the ESLint configuration
+## 🚀 Tech Stack
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **Frontend**: React 19 + TypeScript
+- **Styling**: Tailwind CSS
+- **Build Tool**: Vite
+- **AI Integration**: Google Gemini AI
+- **UI Components**: Custom component library with shadcn/ui inspiration
+- **State Management**: React Hooks
+- **Animations**: CSS transitions and transforms
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## 🚀 Getting Started
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+### Prerequisites
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
+- Node.js 22+
+- npm or yarn
+
+### Installation
+
+1. Clone the repository:
+
+```bash
+git clone <repository-url>
+cd typotune
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+2. Install dependencies:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x';
-import reactDom from 'eslint-plugin-react-dom';
-
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
+```bash
+npm install
 ```
+
+3. Set up environment variables:
+   Create a `.env` file in the root directory:
+
+```env
+VITE_GEMINI_API_KEY=your_gemini_api_key_here
+```
+
+4. Start the development server:
+
+```bash
+npm run dev
+```
+
+5. Open your browser and navigate to `http://localhost:5173`
+
+## 🔧 Configuration
+
+### Google Gemini AI Setup
+
+1. Get your API key from [Google AI Studio](https://makersuite.google.com/app/apikey)
+2. Add it to your `.env` file
+3. The app will automatically use the API key for text improvements
+
+### Build and Deployment
+
+```bash
+# Build for production
+npm run build
+
+# Preview production build
+npm run preview
+
+# Lint code
+npm run lint
+```
+
+## 🎨 Customization
+
+### Styling
+
+The app uses Tailwind CSS for styling. You can customize:
+
+- Color schemes in `tailwind.config.cjs`
+- Component styles in individual component files
+- Global styles in `src/index.css`
+
+### Components
+
+Each component is self-contained and can be easily modified:
+
+- Update `TextCard` to change the appearance of result cards
+- Modify `InputContainer` to adjust input styling
+- Customize `ResultsSection` background effects
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgments
+
+- **Google Gemini AI** for providing the AI capabilities
+- **shadcn/ui** for component design inspiration
+- **Tailwind CSS** for the utility-first CSS framework
+- **Vite** for the fast build tooling
+
+## 📞 Support
+
+If you have any questions or need help, please open an issue on GitHub or contact the development team.
