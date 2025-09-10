@@ -1,2 +1,20 @@
+# dependencies
 node_modules/
-.env
+
+# builds
+dist/
+dist-ssr/
+.vite/
+
+# TypeScript build cache
+*.tsbuildinfo
+.tsbuildinfo
+
+# logs & misc
+*.log
+.DS_Store
+coverage/
+
+# env (keep examples)
+.env*
+!.env.example
