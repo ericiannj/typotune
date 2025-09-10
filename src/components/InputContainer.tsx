@@ -22,17 +22,18 @@ export default function InputContainer({
           className="w-full text-md h-32 sm:h-40 lg:h-48 p-4 sm:p-6 bg-gray-700/50 border-2 border-gray-600/50 rounded-2xl resize-none focus:ring-4 focus:ring-blue-500/20 focus:border-blue-400 text-white transition-all duration-300 text-base sm:text-lg leading-relaxed placeholder:text-gray-500"
         />
       </div>
-      <div className="w-full flex items-center justify-between mt-2">
-        <button
-          onClick={onClear}
-          className="px-4 py-2 cursor-pointer bg-gray-700/80 hover:bg-gray-600/80 text-gray-300 font-semibold rounded-xl transition-all duration-300 flex items-center justify-center hover:shadow-lg transform hover:scale-[1.02] backdrop-blur-sm"
-          title="Clear text"
-        >
-          <span className="text-sm">🗑️</span>
-        </button>
+      <div className="w-full flex items-center justify-end gap-3 mt-2">
         <span className="text-sm text-gray-400 dark:text-gray-500">
           {value.length} characters
         </span>
+        <button
+          onClick={onClear}
+          disabled={!value.trim()}
+          className="px-3 py-1.5 cursor-pointer bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 disabled:from-gray-300 disabled:to-gray-400 text-white disabled:text-gray-500 font-semibold rounded-lg transition-all duration-300 flex items-center justify-center hover:shadow-lg disabled:shadow-none transform hover:scale-[1.02] disabled:scale-100 disabled:cursor-default backdrop-blur-sm"
+          title="Clear text"
+        >
+          <span className="text-xs">Clear text</span>
+        </button>
       </div>
     </div>
   );

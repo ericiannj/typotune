@@ -49,7 +49,7 @@ const useTextImprovement = () => {
           error: err.message || 'An error occurred',
         });
       }
-    }, 500),
+    }, 1000),
     [],
   );
 
