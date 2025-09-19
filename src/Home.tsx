@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import DOMPurify from 'dompurify';
 import TextCard from '@/components/TextCard';
 import ResultsSection from '@/components/ResultsSection';
 import InputSection from '@/components/InputSection';
@@ -27,10 +28,11 @@ export default function Home() {
     if (error) return <span className="text-red-500">{error}</span>;
     if (improved) {
       const formattedText = formatTechnicalTerms(improved);
+      const sanitizedHtml = DOMPurify.sanitize(formattedText);
       return (
         <div
           className="whitespace-pre-wrap"
-          dangerouslySetInnerHTML={{ __html: formattedText }}
+          dangerouslySetInnerHTML={{ __html: sanitizedHtml }}
         />
       );
     }
@@ -42,10 +44,11 @@ export default function Home() {
     if (error) return <span className="text-red-500">{error}</span>;
     if (explanations.length > 0) {
       const formattedExplanation = formatExplanations(explanations[0]);
+      const sanitizedHtml = DOMPurify.sanitize(formattedExplanation);
       return (
         <div
           className="prose prose-sm max-w-none"
-          dangerouslySetInnerHTML={{ __html: formattedExplanation }}
+          dangerouslySetInnerHTML={{ __html: sanitizedHtml }}
         />
       );
     }
