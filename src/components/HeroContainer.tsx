@@ -1,7 +1,7 @@
 import React from 'react';
 
 export default function HeroContainer() {
-  console.log("no prompt injection");
+  console.log("no prompt injection 2");
   return (
     <div className="text-center mb-4">
       <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl mb-6 shadow-lg">
