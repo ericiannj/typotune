@@ -1,3 +1,5 @@
+'use client';
+
 import { useState, useEffect } from 'react';
 import type { ReactNode } from 'react';
 import AppTransition from './AppTransition';
