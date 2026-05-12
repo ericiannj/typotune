@@ -3,7 +3,7 @@
   <h1># TypoTune</h1>
 </div>
 
-A modern, AI-powered writing improvement tool built with React, TypeScript, and Tailwind CSS. TypoTune helps users enhance their English text with AI-powered improvements and detailed explanations.
+A modern, AI-powered writing improvement tool built with Next.js, React, TypeScript, and Tailwind CSS. TypoTune helps users enhance their English text with AI-powered improvements and detailed explanations.
 
 ## ✨ Features
 
@@ -17,13 +17,14 @@ A modern, AI-powered writing improvement tool built with React, TypeScript, and 
 
 ## 🚀 Tech Stack
 
+- **Framework**: Next.js App Router
 - **Frontend**: React 19 + TypeScript
 - **Styling**: Tailwind CSS
-- **Build Tool**: Vite
-- **AI Integration**: Google Gemini AI
+- **AI Integration**: Google Gemini AI through a server-side API route
 - **UI Components**: Custom component library with shadcn/ui inspiration
 - **State Management**: React Hooks
 - **Animations**: CSS transitions and transforms
+- **Testing**: Vitest + React Testing Library
 
 ## 🚀 Getting Started
 
@@ -60,15 +61,26 @@ GEMINI_API_KEY=your_gemini_api_key_here
 npm run dev
 ```
 
-5. Open your browser and navigate to `http://localhost:5173`
+5. Open your browser and navigate to `http://localhost:3000`
+
+## 🏗️ Architecture
+
+TypoTune uses the Next.js App Router in `src/app`.
+
+- `src/app/layout.tsx` defines the root HTML shell and metadata.
+- `src/app/page.tsx` composes the page shell.
+- Client-side state, DOM events, Framer Motion, clipboard access, and DOMPurify usage stay inside Client Components such as `TextImprovementProvider`, `TextInputPanel`, `TextResultsPanel`, `InputContainer`, and `TextCard`.
+- The browser calls the internal `POST /api/text-improvements` route. It does not call Gemini directly.
+- `src/app/api/text-improvements/route.ts` validates requests and returns stable JSON.
+- Server-only Gemini integration lives under `src/lib/llm` and reads `process.env.GEMINI_API_KEY`.
 
 ## 🔧 Configuration
 
 ### Google Gemini AI Setup
 
 1. Get your API key from [Google AI Studio](https://makersuite.google.com/app/apikey)
-2. Add it to your `.env` file
-3. The app will automatically use the API key for text improvements
+2. Add it to your `.env` file as `GEMINI_API_KEY`
+3. The server-side API route will use the key for text improvements
 
 ### Build and Deployment
 
@@ -76,12 +88,22 @@ npm run dev
 # Build for production
 npm run build
 
-# Preview production build
-npm run preview
+# Start the production server
+npm run start
 
 # Lint code
 npm run lint
+
+# Run tests
+npm run test
+
+# Run coverage
+npm run test:coverage
 ```
+
+### Quality Gate
+
+Husky runs the pre-commit hook in `.husky/pre-commit`. The hook runs `lint-staged`, `npm run lint`, and `npm run test` before a commit is accepted.
 
 ## 🎨 Customization
 
@@ -118,7 +140,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **Google Gemini AI** for providing the AI capabilities
 - **shadcn/ui** for component design inspiration
 - **Tailwind CSS** for the utility-first CSS framework
-- **Vite** for the fast build tooling
+- **Next.js** for the React framework and server-side API routes
 
 ## 📞 Support
 
