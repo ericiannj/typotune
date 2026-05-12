@@ -1,6 +1,6 @@
 import { improveTextWithGemini } from '@/lib/gemini';
 import debounce from 'lodash.debounce';
-import { useCallback, useState } from 'react';
+import { useMemo, useState } from 'react';
 
 const useTextImprovement = () => {
   const [apiState, setApiState] = useState({
@@ -19,37 +19,38 @@ const useTextImprovement = () => {
     });
   };
 
-  const improveText = useCallback(
-    debounce(async (value: string) => {
-      if (!value.trim()) {
-        setApiState({
-          improved: '',
-          explanations: [],
-          loading: false,
-          error: null,
-        });
-        return;
-      }
+  const improveText = useMemo(
+    () =>
+      debounce(async (value: string) => {
+        if (!value.trim()) {
+          setApiState({
+            improved: '',
+            explanations: [],
+            loading: false,
+            error: null,
+          });
+          return;
+        }
 
-      setApiState((prev) => ({ ...prev, loading: true, error: null }));
+        setApiState((prev) => ({ ...prev, loading: true, error: null }));
 
-      try {
-        const result = await improveTextWithGemini(value);
-        setApiState({
-          improved: result.improved,
-          explanations: result.explanations,
-          loading: false,
-          error: null,
-        });
-      } catch (err: unknown) {
-        setApiState({
-          improved: '',
-          explanations: [],
-          loading: false,
-          error: err instanceof Error ? err.message : 'An error occurred',
-        });
-      }
-    }, 1000),
+        try {
+          const result = await improveTextWithGemini(value);
+          setApiState({
+            improved: result.improved,
+            explanations: result.explanations,
+            loading: false,
+            error: null,
+          });
+        } catch (err: unknown) {
+          setApiState({
+            improved: '',
+            explanations: [],
+            loading: false,
+            error: err instanceof Error ? err.message : 'An error occurred',
+          });
+        }
+      }, 1000),
     [],
   );
 

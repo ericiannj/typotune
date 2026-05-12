@@ -6,7 +6,7 @@ export type GeminiResponse = {
 export async function improveTextWithGemini(
   input: string,
 ): Promise<GeminiResponse> {
-  const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
+  const apiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
   const endpoint =
     'https://generativelanguage.googleapis.com/v1/models/gemini-2.0-flash-lite:generateContent';
 
