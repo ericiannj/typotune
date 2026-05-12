@@ -1,11 +1,7 @@
 import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
 
-type HomeTransitionProps = {
-  onEnd: () => void;
-};
-
-export default function AppTransition({ onEnd }: HomeTransitionProps) {
+export default function AppTransition() {
   const [displayText, setDisplayText] = useState('');
   const [showCursor, setShowCursor] = useState(true);
   const fullText = 'TypoTune';

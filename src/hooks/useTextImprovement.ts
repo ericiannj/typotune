@@ -41,12 +41,12 @@ const useTextImprovement = () => {
           loading: false,
           error: null,
         });
-      } catch (err: any) {
+      } catch (err: unknown) {
         setApiState({
           improved: '',
           explanations: [],
           loading: false,
-          error: err.message || 'An error occurred',
+          error: err instanceof Error ? err.message : 'An error occurred',
         });
       }
     }, 1000),

@@ -3,21 +3,25 @@ import react from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
 import tseslint from '@typescript-eslint/eslint-plugin';
 import tsparser from '@typescript-eslint/parser';
+import globals from 'globals';
 
 export default [
+  {
+    ignores: ['dist/**', 'dist-ssr/**', 'node_modules/**', 'coverage/**'],
+  },
   js.configs.recommended,
   {
     files: ['**/*.ts', '**/*.tsx'],
-    "env": {
-      "browser": true,
-      "es2021": true
-    },
     languageOptions: {
       parser: tsparser,
       parserOptions: {
         ecmaVersion: 'latest',
         sourceType: 'module',
         ecmaFeatures: { jsx: true },
+      },
+      globals: {
+        ...globals.browser,
+        ...globals.es2021,
       },
     },
     plugins: {
@@ -29,6 +33,7 @@ export default [
       ...react.configs.recommended.rules,
       ...tseslint.configs.recommended.rules,
       'react/react-in-jsx-scope': 'off',
+      'no-undef': 'off',
     },
     settings: {
       react: { version: 'detect' },
