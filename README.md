@@ -51,7 +51,7 @@ npm install
    Create a `.env` file in the root directory:
 
 ```env
-VITE_GEMINI_API_KEY=your_gemini_api_key_here
+GEMINI_API_KEY=your_gemini_api_key_here
 ```
 
 4. Start the development server:
