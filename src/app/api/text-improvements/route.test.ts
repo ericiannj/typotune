@@ -29,7 +29,7 @@ afterEach(() => {
 
 describe('POST /api/text-improvements', () => {
   it('returns 400 when input is blank', async () => {
-    vi.stubEnv('GEMINI_API_KEY', 'test-api-key');
+    vi.stubEnv('GROQ_API_KEY', 'test-api-key');
 
     const response = await POST(createRequest({ input: '   ' }));
 
@@ -41,22 +41,24 @@ describe('POST /api/text-improvements', () => {
   });
 
   it('returns a controlled 500 when the API key is missing', async () => {
-    vi.stubEnv('GEMINI_API_KEY', '');
+    vi.stubEnv('GROQ_API_KEY', '');
 
     const response = await POST(createRequest({ input: 'Improve this text.' }));
 
     expect(response.status).toBe(500);
     expect(await readJson(response)).toEqual({
-      error: 'Gemini API key is not configured.',
+      error: 'Groq API key is not configured.',
     });
     expect(fetchMock).not.toHaveBeenCalled();
   });
 
-  it('returns controlled error JSON when Gemini fails upstream', async () => {
-    vi.stubEnv('GEMINI_API_KEY', 'test-api-key');
+  it('returns controlled error JSON when Groq fails upstream', async () => {
+    vi.stubEnv('GROQ_API_KEY', 'test-api-key');
     fetchMock.mockResolvedValueOnce({
       ok: false,
-      json: async () => ({}),
+      text: async () => '{"error":"upstream error"}',
+      status: 500,
+      statusText: 'Internal Server Error',
     } as Response);
 
     const response = await POST(createRequest({ input: 'Improve this text.' }));
@@ -69,18 +71,16 @@ describe('POST /api/text-improvements', () => {
   });
 
   it('returns parsed improved text and explanations on success', async () => {
-    vi.stubEnv('GEMINI_API_KEY', 'test-api-key');
+    vi.stubEnv('GROQ_API_KEY', 'test-api-key');
     fetchMock.mockResolvedValueOnce({
       ok: true,
       json: async () => ({
-        candidates: [
+        choices: [
           {
-            content: {
-              parts: [
-                {
-                  text: 'a) improved text: Clearer copy;\nb) explanation: More direct tone.',
-                },
-              ],
+            message: {
+              role: 'assistant',
+              content:
+                'a) improved text: Clearer copy;\nb) explanations: - More direct tone.',
             },
           },
         ],
@@ -93,6 +93,7 @@ describe('POST /api/text-improvements', () => {
     expect(await readJson(response)).toEqual({
       improved: 'Clearer copy',
       explanations: ['More direct tone.'],
+      isNotEnglish: false,
     });
     expect(fetchMock).toHaveBeenCalledTimes(1);
   });

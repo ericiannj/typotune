@@ -43,7 +43,7 @@ export default function TextCard({
           </button>
         )}
       </CardHeader>
-      <CardContent className="text-gray-700 min-h-[80px] sm:min-h-[100px] max-h-[200px] sm:max-h-[300px] overflow-auto p-4 sm:p-6">
+      <CardContent className="text-gray-700 h-[120px] sm:h-[140px] overflow-y-auto p-4 sm:p-6">
         {children}
       </CardContent>
     </Card>

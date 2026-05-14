@@ -13,6 +13,7 @@ interface TextImprovementContextValue {
   input: string;
   improved: string;
   explanations: string[];
+  isNotEnglish: boolean;
   loading: boolean;
   error: string | null;
   handleChange: (event: ChangeEvent<HTMLTextAreaElement>) => void;
@@ -29,7 +30,7 @@ export default function TextImprovementProvider({
 }) {
   const [input, setInput] = useState('');
   const { apiState, improveText, handleReset } = useTextImprovement();
-  const { improved, explanations, loading, error } = apiState;
+  const { improved, explanations, isNotEnglish, loading, error } = apiState;
 
   const handleChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setInput(event.target.value);
@@ -47,6 +48,7 @@ export default function TextImprovementProvider({
         input,
         improved,
         explanations,
+        isNotEnglish,
         loading,
         error,
         handleChange,

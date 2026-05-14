@@ -1,48 +1,59 @@
 'use client';
 
-import DOMPurify from 'dompurify';
 import TextCard from '@/components/TextCard';
 import { useTextImprovementContext } from '@/components/TextImprovementProvider';
-import { formatExplanations, formatTechnicalTerms } from '@/lib/formatHtml';
 
 export default function TextResultsPanel() {
-  const { improved, explanations, loading, error } =
+  const { improved, explanations, isNotEnglish, loading, error } =
     useTextImprovementContext();
 
   const renderImprovedText = () => {
-    if (loading) return <span>Loading...</span>;
+    if (loading) return <span className="text-gray-400">Loading...</span>;
     if (error) return <span className="text-red-500">{error}</span>;
-    if (improved) {
-      const formattedText = formatTechnicalTerms(improved);
-      const sanitizedHtml = DOMPurify.sanitize(formattedText);
-
+    if (isNotEnglish)
       return (
-        <div
-          className="whitespace-pre-wrap"
-          dangerouslySetInnerHTML={{ __html: sanitizedHtml }}
-        />
+        <span className="text-amber-600 text-sm">
+          TypoTune only supports English text. Please submit your text in
+          English.
+        </span>
       );
-    }
-
-    return <span>Improved text will appear here</span>;
+    if (improved)
+      return <p className="whitespace-pre-wrap text-sm">{improved}</p>;
+    return (
+      <span className="text-gray-400 text-sm">Improved text will appear here</span>
+    );
   };
 
   const renderExplanations = () => {
-    if (loading) return <span>Loading...</span>;
+    if (loading) return <span className="text-gray-400">Loading...</span>;
     if (error) return <span className="text-red-500">{error}</span>;
-    if (explanations.length > 0) {
-      const formattedExplanation = formatExplanations(explanations[0]);
-      const sanitizedHtml = DOMPurify.sanitize(formattedExplanation);
-
+    if (isNotEnglish)
       return (
-        <div
-          className="prose prose-sm max-w-none"
-          dangerouslySetInnerHTML={{ __html: sanitizedHtml }}
-        />
+        <span className="text-amber-600 text-sm">
+          TypoTune only supports English text. Please submit your text in
+          English.
+        </span>
       );
-    }
-
-    return <span>Explanations will appear here</span>;
+    if (explanations.length > 0)
+      return (
+        <ul className="space-y-1.5">
+          {explanations.map((item, i) => (
+            <li key={i} className="flex items-start gap-2 text-sm text-gray-700">
+              <span className="text-indigo-500 mt-0.5 shrink-0">•</span>
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+      );
+    if (improved)
+      return (
+        <span className="text-gray-400 text-sm italic">
+          No improvements needed — the text looks great as is.
+        </span>
+      );
+    return (
+      <span className="text-gray-400 text-sm">Explanations will appear here</span>
+    );
   };
 
   return (

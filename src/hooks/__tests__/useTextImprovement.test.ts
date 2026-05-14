@@ -28,6 +28,7 @@ describe('useTextImprovement', () => {
       json: async () => ({
         improved: 'Existing copy',
         explanations: ['Existing explanation.'],
+        isNotEnglish: false,
       }),
     } as Response);
 
@@ -48,6 +49,7 @@ describe('useTextImprovement', () => {
     expect(result.current.apiState).toEqual({
       improved: '',
       explanations: [],
+      isNotEnglish: false,
       loading: false,
       error: null,
     });
@@ -59,6 +61,7 @@ describe('useTextImprovement', () => {
       json: async () => ({
         improved: 'Improved copy',
         explanations: ['Clearer and more concise.'],
+        isNotEnglish: false,
       }),
     } as Response);
 
@@ -72,6 +75,7 @@ describe('useTextImprovement', () => {
     expect(result.current.apiState).toEqual({
       improved: 'Improved copy',
       explanations: ['Clearer and more concise.'],
+      isNotEnglish: false,
       loading: false,
       error: null,
     });
@@ -89,6 +93,7 @@ describe('useTextImprovement', () => {
         json: async () => ({
           improved: 'Existing copy',
           explanations: ['Existing explanation.'],
+          isNotEnglish: false,
         }),
       } as Response)
       .mockResolvedValueOnce({
@@ -112,6 +117,7 @@ describe('useTextImprovement', () => {
     expect(result.current.apiState).toEqual({
       improved: '',
       explanations: [],
+      isNotEnglish: false,
       loading: false,
       error: 'Unable to improve text right now.',
     });

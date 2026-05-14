@@ -5,6 +5,7 @@ type TextImprovementResponse =
   | {
       improved: string;
       explanations: string[];
+      isNotEnglish: boolean;
     }
   | {
       error: string;
@@ -44,6 +45,7 @@ const useTextImprovement = () => {
   const [apiState, setApiState] = useState({
     improved: '',
     explanations: [] as string[],
+    isNotEnglish: false,
     loading: false,
     error: null as string | null,
   });
@@ -52,6 +54,7 @@ const useTextImprovement = () => {
     setApiState({
       improved: '',
       explanations: [],
+      isNotEnglish: false,
       loading: false,
       error: null,
     });
@@ -64,6 +67,7 @@ const useTextImprovement = () => {
           setApiState({
             improved: '',
             explanations: [],
+            isNotEnglish: false,
             loading: false,
             error: null,
           });
@@ -77,6 +81,7 @@ const useTextImprovement = () => {
           setApiState({
             improved: result.improved,
             explanations: result.explanations,
+            isNotEnglish: result.isNotEnglish,
             loading: false,
             error: null,
           });
@@ -84,6 +89,7 @@ const useTextImprovement = () => {
           setApiState({
             improved: '',
             explanations: [],
+            isNotEnglish: false,
             loading: false,
             error: err instanceof Error ? err.message : 'An error occurred',
           });
