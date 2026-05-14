@@ -1,10 +1,10 @@
 # TypoTune
 
-TypoTune is a Next.js app for improving English text with the help of Gemini. It sends user input through a server-side API route, returns a revised version, and explains the main changes.
+TypoTune is a Next.js app for improving English text with the help of Groq AI. It sends user input through a server-side API route, returns a revised version, and explains the main changes.
 
 ## Features
 
-- Text improvement powered by Google Gemini
+- Text improvement powered by Groq AI (Llama 3.3 70B)
 - Explanations for suggested edits
 - Character counter and copy-to-clipboard support
 - Responsive interface built with React and Tailwind CSS
@@ -16,7 +16,7 @@ TypoTune is a Next.js app for improving English text with the help of Gemini. It
 - TypeScript
 - Tailwind CSS
 - Vitest and React Testing Library
-- Google Gemini through a server-side route
+- Groq AI through a server-side route
 
 ## Getting Started
 
@@ -29,8 +29,10 @@ npm install
 Create a `.env` file in the project root:
 
 ```env
-GEMINI_API_KEY=your_gemini_api_key_here
+GROQ_API_KEY=your_groq_api_key_here
 ```
+
+Get a free API key at [console.groq.com](https://console.groq.com) (no credit card required).
 
 Start the development server:
 
@@ -53,7 +55,6 @@ npm run test:coverage
 
 ## Project Notes
 
-The browser calls `POST /api/text-improvements`; Gemini is only accessed from the server. The API key is read from `GEMINI_API_KEY`.
+The browser calls `POST /api/text-improvements`; Groq is only accessed from the server. The API key is read from `GROQ_API_KEY`.
 
 Pre-commit checks are handled by Husky and include linting, formatting for staged files, and tests.
-

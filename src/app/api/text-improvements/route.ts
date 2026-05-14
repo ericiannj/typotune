@@ -1,7 +1,4 @@
-import {
-  GeminiConfigurationError,
-  improveTextWithGemini,
-} from '@/lib/llm/gemini';
+import { GroqConfigurationError, improveTextWithGroq } from '@/lib/llm/groq';
 
 const INVALID_INPUT_MESSAGE = 'Please provide text to improve.';
 const UPSTREAM_ERROR_MESSAGE = 'Unable to improve text right now.';
@@ -25,10 +22,10 @@ export async function POST(request: Request) {
   }
 
   try {
-    const result = await improveTextWithGemini(input);
+    const result = await improveTextWithGroq(input);
     return Response.json(result);
   } catch (error) {
-    if (error instanceof GeminiConfigurationError) {
+    if (error instanceof GroqConfigurationError) {
       return Response.json({ error: error.message }, { status: 500 });
     }
 
