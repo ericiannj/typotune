@@ -1,11 +1,10 @@
+'use client';
+
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 import { useState, useEffect } from 'react';
 
-type HomeTransitionProps = {
-  onEnd: () => void;
-};
-
-export default function AppTransition({ onEnd }: HomeTransitionProps) {
+export default function AppTransition() {
   const [displayText, setDisplayText] = useState('');
   const [showCursor, setShowCursor] = useState(true);
   const fullText = 'TypoTune';
@@ -34,7 +33,7 @@ export default function AppTransition({ onEnd }: HomeTransitionProps) {
   return (
     <div className="z-10 flex h-screen w-full flex-col items-center justify-center bg-gradient-to-b from-[#0a0a0a] to-[#0f172a]">
       <div className="mb-8">
-        <img src="/typing.png" alt="TypoTune" className="w-28 h-28" />
+        <Image src="/typing.png" alt="TypoTune" width={112} height={112} />
       </div>
       <div className="flex items-center justify-center">
         <motion.span

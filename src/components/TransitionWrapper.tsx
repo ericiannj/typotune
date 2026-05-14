@@ -1,10 +1,13 @@
+'use client';
+
 import { useState, useEffect } from 'react';
+import type { ReactNode } from 'react';
 import AppTransition from './AppTransition';
 
 export default function TransitionWrapper({
   children,
 }: {
-  children: React.ReactNode;
+  children: ReactNode;
 }) {
   const [showTransition, setShowTransition] = useState(true);
 
@@ -18,7 +21,7 @@ export default function TransitionWrapper({
   }, []);
 
   if (showTransition) {
-    return <AppTransition onEnd={handleEndTransition} />;
+    return <AppTransition />;
   }
 
   return <>{children}</>;
