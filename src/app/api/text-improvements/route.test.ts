@@ -1,14 +1,17 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { resetRateLimiter } from '@/lib/rate-limiter';
 import { POST } from './route';
 
 vi.mock('server-only', () => ({}));
 
 const fetchMock = vi.fn<typeof fetch>();
 
-function createRequest(body: unknown) {
+function createRequest(body: unknown, ip?: string) {
+  const headers: Record<string, string> = { 'Content-Type': 'application/json' };
+  if (ip) headers['x-forwarded-for'] = ip;
   return new Request('http://localhost/api/text-improvements', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers,
     body: JSON.stringify(body),
   });
 }
@@ -19,6 +22,7 @@ async function readJson(response: Response) {
 
 beforeEach(() => {
   vi.stubGlobal('fetch', fetchMock);
+  resetRateLimiter();
 });
 
 afterEach(() => {
@@ -68,6 +72,22 @@ describe('POST /api/text-improvements', () => {
       error: 'Unable to improve text right now.',
     });
     expect(fetchMock).toHaveBeenCalledTimes(1);
+  });
+
+  it('returns 429 when the per-IP rate limit is exceeded', async () => {
+    vi.stubEnv('GROQ_API_KEY', 'test-api-key');
+    const ip = '9.9.9.9';
+    for (let i = 0; i < 30; i++) {
+      await POST(createRequest({ input: '' }, ip));
+    }
+
+    const response = await POST(createRequest({ input: 'Improve this.' }, ip));
+
+    expect(response.status).toBe(429);
+    expect(response.headers.get('Retry-After')).not.toBeNull();
+    expect(await readJson(response)).toEqual({
+      error: 'Too many requests. Try again later.',
+    });
   });
 
   it('returns parsed improved text and explanations on success', async () => {

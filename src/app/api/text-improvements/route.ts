@@ -1,9 +1,21 @@
+import { checkRateLimit } from '@/lib/rate-limiter';
 import { GroqConfigurationError, improveTextWithGroq } from '@/lib/llm/groq';
 
 const INVALID_INPUT_MESSAGE = 'Please provide text to improve.';
 const UPSTREAM_ERROR_MESSAGE = 'Unable to improve text right now.';
+const RATE_LIMIT_MESSAGE = 'Too many requests. Try again later.';
 
 export async function POST(request: Request) {
+  const ip = request.headers.get('x-forwarded-for')?.split(',')[0].trim() ?? 'unknown';
+  const limit = checkRateLimit(ip);
+
+  if (!limit.allowed) {
+    return Response.json(
+      { error: RATE_LIMIT_MESSAGE },
+      { status: 429, headers: { 'Retry-After': String(limit.retryAfter) } },
+    );
+  }
+
   let body: unknown;
 
   try {
