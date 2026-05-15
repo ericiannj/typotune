@@ -11,12 +11,10 @@ export default function TransitionWrapper({
 }) {
   const [showTransition, setShowTransition] = useState(true);
 
-  const handleEndTransition = () => {
-    setShowTransition(false);
-  };
-
   useEffect(() => {
-    const timer = setTimeout(handleEndTransition, 2000);
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const delay = reducedMotion ? 0 : 2000;
+    const timer = setTimeout(() => setShowTransition(false), delay);
     return () => clearTimeout(timer);
   }, []);
 

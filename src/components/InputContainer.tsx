@@ -21,7 +21,7 @@ export default function InputContainer({
           value={value}
           onChange={onChange}
           placeholder="Type or paste your English text here..."
-          className="w-full text-md h-32 sm:h-40 lg:h-48 p-4 sm:p-6 bg-gray-700/50 border-2 border-gray-600/50 rounded-2xl resize-none focus:ring-4 focus:ring-blue-500/20 focus:border-blue-400 text-white transition-all duration-300 text-base sm:text-lg leading-relaxed placeholder:text-gray-500"
+          className="w-full h-32 sm:h-40 lg:h-48 p-4 sm:p-6 bg-gray-700/50 border-2 border-gray-600/50 rounded-2xl resize-none focus:ring-4 focus:ring-blue-500/20 focus:border-blue-400 text-white transition-all duration-300 text-base sm:text-lg leading-relaxed placeholder:text-gray-500"
         />
       </div>
       <div className="w-full flex items-center justify-end gap-3 mt-2">
