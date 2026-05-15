@@ -1,5 +1,3 @@
-import React from 'react';
-
 export default function AICreditsBadge() {
   return (
     <div className="flex justify-center mt-6">

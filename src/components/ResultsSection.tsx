@@ -1,7 +1,7 @@
-import React from 'react';
+import type { ReactNode } from 'react';
 
 interface ResultsSectionProps {
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 export default function ResultsSection({ children }: ResultsSectionProps) {

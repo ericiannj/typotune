@@ -1,11 +1,11 @@
 'use client';
 
-import React from 'react';
+import type { ReactNode } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 interface TextCardProps {
   title: string;
-  children: React.ReactNode;
+  children: ReactNode;
   showCopyButton?: boolean;
   copyText?: string;
   onCopy?: () => void;

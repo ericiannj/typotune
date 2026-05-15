@@ -1,11 +1,11 @@
 'use client';
 
-import React from 'react';
+import type { ChangeEvent } from 'react';
 import { Textarea } from '@/components/ui/textarea';
 
 interface InputContainerProps {
   value: string;
-  onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  onChange: (e: ChangeEvent<HTMLTextAreaElement>) => void;
   onClear: () => void;
 }
 

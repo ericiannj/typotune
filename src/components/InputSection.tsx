@@ -1,7 +1,7 @@
-import React from 'react';
+import type { ReactNode } from 'react';
 
 interface InputSectionProps {
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 export default function InputSection({ children }: InputSectionProps) {
