@@ -57,4 +57,8 @@ npm run test:coverage
 
 The browser calls `POST /api/text-improvements`; Groq is only accessed from the server. The API key is read from `GROQ_API_KEY`.
 
+Input is capped at 5,000 characters per request to limit token consumption.
+
+The API route includes an in-process rate limiter (30 requests per IP, 200 globally, per hour). This works correctly in single-instance deployments. In serverless environments where multiple function instances run in parallel, each instance holds its own state, so the limits are not enforced across instances. A distributed store such as Redis would be needed for reliable enforcement at scale.
+
 Pre-commit checks are handled by Husky and include linting, formatting for staged files, and tests.
